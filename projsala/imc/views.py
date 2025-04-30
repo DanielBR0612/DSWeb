@@ -2,7 +2,24 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request): #orbrigatorio o parametro request
-    return HttpResponse("<h1>Bem vindo a aplicação IMC!</h1>") #retorna uma resposta http em codigo html
+    return render(request, 'index.html')
 
-def calcular(request):
-    return HttpResponse("<h1>2+2=4</h1>")
+def calcular_imc(request):
+    altura = float(request.GET.get('altura'))
+    peso = float(request.GET.get('peso'))
+    imc= peso/(altura*altura)
+    if imc < 18.5:
+        classificacao = 'Abaixo do peso'
+    elif imc < 24.9:
+        classificacao = 'Peso normal'
+    elif imc < 29.9:
+        classificacao = 'Sobrepeso'
+    else:
+        classificacao = 'Obesidade'
+    contexto= {
+        'imc': imc,
+        'classificacao': classificacao,
+        'altura': altura,
+        'peso': peso,
+    }
+    return render(request, 'resultado_imc.html', contexto)

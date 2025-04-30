@@ -20,6 +20,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("imc/",include('imc.urls')),
-    path("imc/calcular/",include('imc.urls'))
+    path("imc/",include('imc.urls'))
 ]
