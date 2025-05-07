@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "imc.apps.ImcConfig"
+    "imc.apps.ImcConfig",
+    "enquete.apps.EnqueteConfig"
 ]
 
 MIDDLEWARE = [
