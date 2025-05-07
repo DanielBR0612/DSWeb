@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [ #padroes de url
-    path('enquete/', views.index, name='index'), #rota, função, nome
+    path('', views.index, name='enquete'), #rota, função, nome
+    path('resultado/', views.resultado, name="resultado")
 ]
