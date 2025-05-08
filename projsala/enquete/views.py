@@ -1,27 +1,26 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+opc = 0
+lista = [0,0,0,0]
+numero_votos = 0
 
 def index(request):
     return render(request, 'enquete.html')
 
-def resultado(request):
-    numero_votos = 0
-    opc1 = 1 if bool(request.GET.get('opc1')) else 0
-    opc2 = 1 if bool(request.GET.get('opc2')) else 0
-    opc3 = 1 if bool(request.GET.get('opc3')) else 0
-    opc4 = 1 if bool(request.GET.get('opc4')) else 0
+def resultado(request):    
+    global numero_votos
 
-    lista = [opc1,opc2,opc3,opc4]
+    opc = int(request.GET.get('opc'))
+    
+    lista[opc-1]+=1
 
-    for i in range(len(lista)):
-        if lista[i] == 1:
-            numero_votos = numero_votos + 1
+    numero_votos += 1
 
     contexto = {
-        'opc1': opc1,
-        'opc2': opc2,
-        'opc3': opc3,
-        'opc4': opc4,
+        'opc': lista[0],
+        'opc2': lista[1],
+        'opc3': lista[2],
+        'opc4': lista[3],
         'numero_votos': numero_votos
     }
 
