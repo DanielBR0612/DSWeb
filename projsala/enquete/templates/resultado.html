@@ -13,33 +13,16 @@
                 <div class="column is-half">
                     <div class="box">
                         <h1 class="title has-text-centered">
-                            Resultados: Escolha uma opção:
+                            Resultados: {{ pergunta }}
                         </h1>
 
                         <div class="content">
+                            {% for alternativa, lista in resultado %}
                             <div class="mb-4">
-                                <p>Opção 1: <strong>{{ opc }}</strong> votos</p>
-                                <progress class="progress is-primary" value={{ opc }} max="10"></progress>
+                                <p>{{ alternativa }} <strong>{{ lista }}</strong> votos</p>
+                                <progress class="progress is-primary" value={{ lista }} max="10"></progress>
                             </div>
-                            
-                            <div class="mb-4">
-                                <p>Opção 2: <strong>{{ opc2 }} </strong> votos</p>
-                                <progress class="progress is-info" value={{ opc2 }} max="10"></progress>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <p>Opção 3: <strong>{{ opc3 }}</strong> votos</p>
-                                <progress class="progress is-success" value={{ opc3 }} max="10"></progress>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <p>Opção 4: <strong>{{ opc4 }} </strong> votos</p>
-                                <progress class="progress is-warning" value={{ opc4 }} max="10"></progress>
-                            </div>
-
-                            <div class="notification is-light">
-                                Total de votos: <strong>{{ numero_votos }} </strong>
-                            </div>
+                            {% endfor %}
                         </div>
 
                         <div class="has-text-centered">

@@ -11,44 +11,19 @@
         <div class="container">
             <div class="box" style="max-width: 600px; margin: 0 auto;">
                 <h1 class="title has-text-centered">Enquete</h1>
-                <h2 class="subtitle">Escolha uma opção: </h2>
+                <h2 class="subtitle"> {{ pergunta }} </h2>
                 
                 <form id="form-enquete" action="resultado/">
+                    {% for alternativa in alternativas %}
                     <div class="field">
                         <div class="control">
                             <label class="radio">
-                                <input type="radio" name="opc" value=1>
-                                Opção 1
+                                <input type="radio" name="opc" value="{{ forloop.counter }}">
+                                {{ alternativa }}
                             </label>
                         </div>
                     </div>
-                    
-                    <div class="field">
-                        <div class="control">
-                            <label class="radio">
-                                <input type="radio" name="opc" value=2>
-                                Opção 2
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="field">
-                        <div class="control">
-                            <label class="radio">
-                                <input type="radio" name="opc" value=3>
-                                Opção 3
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="field">
-                        <div class="control">
-                            <label class="radio">
-                                <input type="radio" name="opc" value=4>
-                                Opção 4
-                            </label>
-                        </div>
-                    </div>
+                    {% endfor %}
                     
                     <div class="field is-grouped" style="margin-top: 20px;">
                         <div class="control">
