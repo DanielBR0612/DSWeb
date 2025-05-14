@@ -3,8 +3,8 @@ from django.shortcuts import render
 opc = 0
 lista = [0,0,0,0]
 numero_votos = 0
-
 alternativas = ["Opção 1: ", "Opção 2: ", "Opção 3: ", "Opção 4: "]
+
 pergunta = "Escolha uma opção:"
 
 def index(request):

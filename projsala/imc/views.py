@@ -5,8 +5,8 @@ def index(request): #orbrigatorio o parametro request
     return render(request, 'index.html')
 
 def calcular_imc(request):
-    altura = float(request.GET.get('altura'))
-    peso = float(request.GET.get('peso'))
+    altura = float(request.POST.get('altura'))
+    peso = float(request.POST.get('peso'))
     imc= peso/(altura*altura)
     if imc < 18.5:
         classificacao = 'Abaixo do peso'
