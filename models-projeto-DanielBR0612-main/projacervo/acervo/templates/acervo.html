@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Acervo - Listagem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <script src="{% static 'acervo/js/biblioteca.js' %}"></script>
+  </head>
+  <body class="bg-gray-950 text-white min-h-screen flex flex-col">
+    <!-- Cabeçalho -->
+    <header class="text-center py-10 px-4">
+      <h1 class="text-4xl font-bold mb-2">📑 Itens do Acervo</h1>
+      <p class="text-gray-400">
+        Visualize, pesquise e gerencie seus itens cadastrados.
+      </p>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-grow px-6 max-w-6xl mx-auto">
+      <!-- Barra de Ações -->
+      <div
+        class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6"
+      >
+        <!-- Barra de pesquisa -->
+        <div id="url_requisicao" data-url="{% url 'acervo:api_itens' %}"></div>
+        <form  method="GET" class="w-full md:w-2/3">
+          <input
+            type="text"
+            name="query"
+            placeholder="🔍 Pesquisar por título"
+            value="{{resquset.GET.query}}"
+            class="w-full px-4 py-2 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          />
+        </form>
+
+        <!-- Botão de cadastro -->
+        <a
+          href="{% url 'acervo:cadastroItem' %}"
+          class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full transition shadow-md"
+        >
+          ➕ Cadastrar Novo Item
+        </a>
+      </div>
+
+      <!-- Grid de itens -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% if itens %} 
+        {% for item in itens %}
+        <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden">
+          <!-- Imagem do item -->
+          <div class="aspect-w-16 aspect-h-9 bg-gray-800">
+            {% if item.foto %}
+              <img 
+                src="{{ item.foto.url }}" 
+                alt="{{ item.titulo }}"
+                class="w-full h-48 object-cover"
+              >
+            {% else %}
+              <div class="w-full h-48 flex items-center justify-center bg-gray-800 text-gray-500">
+                📷 Sem imagem
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Informações do item -->
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2">{{ item.titulo }}</h3>
+            
+            <div class="space-y-2 text-sm text-gray-400">
+              <p>
+                <span class="inline-block w-16">✍️ Autor:</span>
+                {{ item.autor }}
+              </p>
+              <p>
+                <span class="inline-block w-16">📅 Ano:</span>
+                {{ item.data }}
+              </p>
+              <p>
+                <span class="inline-block w-16">📂 Status:</span>
+                <span class="{% if item.status == 'disponivel' %}text-green-500{% else %}text-red-500{% endif %}">
+                  {{ item.status }}
+                </span>
+              </p>
+            </div>
+
+            <!-- Ações -->
+            <div class="mt-4 flex justify-end space-x-2">
+              {% if item.status == 'disponivel' %}
+              <a 
+                href="{% url 'acervo:realizarEmprestimo' %}" 
+                class="text-blue-400 hover:underline px-3 py-1"
+              >
+                ✏️ Emprestar
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-span-full py-12 text-center text-gray-500">
+          📭 Nenhum item encontrado.
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Botão Voltar -->
+      <div class="mt-8 text-center">
+        <button class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full transition shadow-md">
+          <a href="{% url 'acervo:index' %}">⬅️ Voltar</a>
+        </button>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-950 py-6 text-center text-sm text-gray-500 mt-10">
+      &copy; 2025 Sistema de Acervo Pessoal · Desenvolvido por Daniel
+      Braga
+    </footer>
+  </body>
+</html>

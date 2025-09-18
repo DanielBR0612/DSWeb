@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center px-4">
+
+  <header class="mb-10 text-center">
+    <h1 class="text-4xl font-bold">Faça seu login</h1>
+    <p class="text-gray-400 mt-2">Entre com seu usuário e senha</p>
+  </header>
+
+  <form method="post" class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
+    {% csrf_token %}
+
+    <!-- Usuário ou Email -->
+    <div>
+      <label for="id_username" class="block text-sm font-medium text-gray-300 mb-1">Usuário ou E-mail</label>
+      <input
+        type="text"
+        id="id_username"
+        name="username"
+        required
+        class="w-full rounded-md bg-gray-700 border border-gray-600 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Digite seu usuário ou e-mail"
+      />
+    </div>
+
+    <!-- Senha -->
+    <div>
+      <label for="id_password" class="block text-sm font-medium text-gray-300 mb-1">Senha</label>
+      <input
+        type="password"
+        id="id_password"
+        name="password"
+        required
+        class="w-full rounded-md bg-gray-700 border border-gray-600 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Digite sua senha"
+      />
+    </div>
+
+    <!-- Botão -->
+    <div>
+      <button
+        type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg text-white font-semibold transition"
+      >
+        Entrar
+      </button>
+    </div>
+
+    <!-- Link para cadastro -->
+    <p class="text-center text-gray-400 text-sm">
+      Ainda não tem uma conta?
+      <a href="{% url 'acervo:cadastro' %}" class="text-blue-500 hover:underline">Crie uma aqui</a>
+    </p>
+  </form>
+
+</body>
+</html>

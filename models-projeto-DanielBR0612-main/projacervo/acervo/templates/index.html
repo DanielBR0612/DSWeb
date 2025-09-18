@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acervo Pessoal - Início</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen flex flex-col">
+
+  <!-- Hero/Header -->
+  <header class="flex flex-col items-center justify-center text-center py-20 px-6">
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+      📚 Sistema de Acervo Pessoal
+    </h1>
+    <p class="text-gray-400 text-lg max-w-2xl">
+      Gerencie seus livros, contatos e empréstimos de forma simples e intuitiva.
+    </p>
+    <div class="flex flex-row gap-4">
+          <div class="mt-8">
+            <a href="{% url 'acervo:logout' %}" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition shadow-md">
+                🔓 Logout
+              </a>
+          </div>
+    </div>
+  </header>
+
+  <!-- Menu -->
+  <main id="menu" class="flex-grow bg-gray-900 px-6 py-12">
+    <div class="max-w-6xl mx-auto grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+      <!-- Cards do menu -->
+      <a href="{% url 'acervo:biblioteca' %}" class="bg-gray-800 hover:bg-green-600 transition-colors p-6 rounded-xl text-center shadow-lg">
+        📘 <span class="block mt-2 font-semibold text-lg">Acervo</span>
+      </a>
+
+      <a href="{% url 'acervo:contatos' %}" class="bg-gray-800 hover:bg-yellow-600 transition-colors p-6 rounded-xl text-center shadow-lg">
+        📇 <span class="block mt-2 font-semibold text-lg">Contatos</span>
+      </a>
+
+      <a href="{% url 'acervo:emprestimos' %}" class="bg-gray-800 hover:bg-indigo-600 transition-colors p-6 rounded-xl text-center shadow-lg">
+        📤 <span class="block mt-2 font-semibold text-lg">Empréstimos</span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-gray-950 py-6 text-center text-sm text-gray-500">
+    &copy; 2025 Sistema de Acervo Pessoal · Desenvolvido por Daniel Braga
+  </footer>
+
+</body>
+</html>

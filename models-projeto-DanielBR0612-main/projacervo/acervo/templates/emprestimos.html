@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Emprestimos - Listagem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-950 text-white min-h-screen flex flex-col">
+    <!-- Cabeçalho -->
+    <header class="text-center py-10 px-4">
+      <h1 class="text-4xl font-bold mb-2">📑 Emprestimos realizados</h1>
+      <p class="text-gray-400">
+        Visualize e registre devoluções dos seus emprestimos.
+      </p>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-grow px-6 max-w-6xl mx-auto">
+      <!-- Barra de Ações -->
+      <div
+        class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6"
+      >
+        <!-- Barra de pesquisa -->
+        <form method="GET" class="w-full md:w-2/3">
+          <input
+            type="text"
+            name="query"
+            value="{{ request.GET.query }}"
+            placeholder="🔍 Pesquisar por item"
+            class="w-full px-4 py-2 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          />
+        </form>
+      </div>
+
+      <!-- Tabela de listagem -->
+      <div class="overflow-x-auto bg-gray-900 rounded-xl shadow-lg">
+        <table id="lista" class="min-w-full divide-y divide-gray-700">
+          <thead class="bg-gray-800 text-gray-300 text-left text-sm">
+            <tr>
+              <th class="py-3 px-4">📘 Item</th>
+              <th class="py-3 px-4">✍️ Contato</th>
+              <th class="py-3 px-4">✍️ Data</th>
+              <th class="py-3 px-4 text-center">⚙️ Ações</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800 text-sm">
+            {% if emprestimos %} {% for emprestimo in emprestimos %}
+            <tr class="hover:bg-gray-800 transition">
+              <td class="py-3 px-4">{{ emprestimo.item.titulo }}</td>
+              <td class="py-3 px-4">{{ emprestimo.contato }}</td>
+              <td class="py-3 px-4">{{ emprestimo.data_emprestimo }}</td>
+              <td class="py-3 px-4 text-center space-x-2">
+                <form action="{% url 'acervo:registrarDevolucao' %}" method="POST" class="inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="emprestimo_id" value="{{ emprestimo.id }}">
+                    <input type="hidden" name="data_devolucao" value="{% now 'Y-m-d' %}">
+                    <button type="submit" class="text-red-500 hover:underline">🗑️ Devolver</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %} {% else %}
+            <tr>
+              <td colspan="5" class="py-6 text-center text-gray-500">
+                📭 Nenhum emprestimo realizado.
+              </td>
+            </tr>
+            {% endif %}
+
+            <!-- Linha caso não haja itens -->
+            <!--
+          <tr>
+            <td colspan="5" class="py-6 text-center text-gray-500">Nenhum item encontrado.</td>
+          </tr>
+          --></tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 text-center">
+        <button"
+          class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full transition shadow-md"><a href="{% url 'acervo:index' %}">
+            ⬅️ Voltar
+          </a>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-950 py-6 text-center text-sm text-gray-500 mt-10">
+      &copy; 2025 Sistema de Acervo Pessoal · Desenvolvido por Daniel
+      Braga
+    </footer>
+  </body>
+</html>
